@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSeadragonAnnotationWeb", "src\OpenSeadragonAnnotationWeb\OpenSeadragonAnnotationWeb.csproj", "{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EA7F4B1-9EB3-4718-B349-F0D5ECE463AB}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@section OpenSeadragonScripts {
+    @await Html.PartialAsync("_OpenSeadragonScriptsPartial")
+}
+
+<div style="display: flex; flex-direction: column; justify-content: flex-start;">
+    <!--按钮用于标记的选择-->
+    <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+    <h2>OpenSeadragon</h2>
+        <button id="rect" style="width:5%; ">画标注</button>
+    </div>
+    <!--openseadragon-->
+    <div>
+        <div id="openSeadragon1" style="width:100%; height:970px;"></div>
+    </div>
+</div>
+
