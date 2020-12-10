@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+   
+      <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+      <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +13,7 @@
     <Compile Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
     <Content Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <Content Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
-<Content Remove="wwwroot\dzc_output_images\**"/>
+<Content Remove="wwwroot\dzc_output_images\**" />
     <EmbeddedResource Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <EmbeddedResource Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
     <None Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
@@ -24,6 +28,23 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\OpenSeadragonService\OpenSeadragonService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>..\..\lib\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>..\..\lib\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

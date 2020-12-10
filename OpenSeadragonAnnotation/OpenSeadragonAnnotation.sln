@@ -3,18 +3,54 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSeadragonAnnotationWeb", "src\OpenSeadragonAnnotationWeb\OpenSeadragonAnnotationWeb.csproj", "{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSeadragonAnnotationWeb", "src\OpenSeadragonAnnotationWeb\OpenSeadragonAnnotationWeb.csproj", "{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DST.Database", "src\DST.Database\DST.Database.csproj", "{83F8861C-E19E-425D-9BCC-C49F2EB230FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSeadragonService", "src\OpenSeadragonService\OpenSeadragonService.csproj", "{50F742B4-FDA3-4FD8-988C-19518DE4EE08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Debug|x64.Build.0 = Debug|Any CPU
 		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|x64.ActiveCfg = Release|Any CPU
+		{5EA0309E-01A3-4B62-9ED7-36FBE91F9B9E}.Release|x64.Build.0 = Release|Any CPU
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Debug|x64.ActiveCfg = Debug|x64
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Debug|x64.Build.0 = Debug|x64
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Release|x64.ActiveCfg = Release|x64
+		{83F8861C-E19E-425D-9BCC-C49F2EB230FD}.Release|x64.Build.0 = Release|x64
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Debug|x64.Build.0 = Debug|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Release|x64.ActiveCfg = Release|Any CPU
+		{90ECFCA6-0BBE-4FBE-8843-FFA0B536909D}.Release|x64.Build.0 = Release|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Debug|x64.Build.0 = Debug|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Release|x64.ActiveCfg = Release|Any CPU
+		{50F742B4-FDA3-4FD8-988C-19518DE4EE08}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

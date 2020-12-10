@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+/OpenSeadragonAnnotation/src/OpenSeadragonAnnotationWeb/wwwroot/dzc_output_images/
+/OpenSeadragonAnnotation/src/OpenSeadragonAnnotationWeb/Anno.db

@@ -1,5 +1,8 @@
-﻿var self = this;
+﻿
+
+var self = this;
 var isDraw = false;
+var olay = {};
 window.onload = function () {
     var viewer = OpenSeadragon({
         id: "openSeadragon1",
@@ -26,6 +29,16 @@ window.onload = function () {
         viewer.setMouseNavEnabled(!isDraw);
         viewer.outerTracker.setTracking(!isDraw);
     };
+    // 获取标注
+    $.get("http://localhost:5001/Annotation/GetAnnoMarks", data => {
+        data.forEach(x => {
+            if (x.type === "rect") {
+                var r = new fabric.Rect(x);
+                olay.fabricCanvas().add(r);
+            }
+        });
+
+    });
 };
 
 function InitFabricOverlay(viewer) {
@@ -35,22 +48,22 @@ function InitFabricOverlay(viewer) {
         scale: 1000
     }
     var overlay = viewer.fabricjsOverlay(options);
-
+    olay = overlay;
     // Add fabric rectangle
     var rect = {};
 
-    var rect2 = new fabric.Rect({
-        left: 666,
-        top: 666,
-        //fill: 'red',
-        fill: '',
-        width: 200,
-        height: 200,
-        stroke: 'red', // 边框颜色
-        strokeWidth: 3 // 线宽
-    });
+    //var rect2 = new fabric.Rect({
+    //    left: 666,
+    //    top: 666,
+    //    //fill: 'red',
+    //    fill: '',
+    //    width: 200,
+    //    height: 200,
+    //    stroke: 'red', // 边框颜色
+    //    strokeWidth: 3 // 线宽
+    //});
 
-    overlay.fabricCanvas().add(rect2);
+    //overlay.fabricCanvas().add(rect2);
     var text = new fabric.Text('Start\n drawing', {
         left: 950,
         top: 150,
@@ -107,8 +120,28 @@ function InitFabricOverlay(viewer) {
 
     overlay.fabricCanvas().on('mouse:up', function (event) {
         if (window.isDraw) {
-
             isDown = false;
+            try {
+                var tmp = JSON.parse(JSON.stringify(rect))
+                //$.post("http://localhost:5001/Annotation/StoreAnno", tmp, function (data) {
+                //    rect = {};
+                //});
+                $.ajax({
+                    type: "post",
+                    url: "http://localhost:5001/Annotation/StoreAnno",
+                    contentType: 'application/json',
+                    data: JSON.stringify(rect),
+                    success: function (data, status) {
+                        if (data && status === 'success') {
+                            rect.guid = data.guid;
+                            rect.id = data.id;
+                        }
+                        console.log("加载数据成功！")
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
             return;
         }
         if (isRealValue(event.target)) {
@@ -159,6 +192,21 @@ function InitFabricOverlay(viewer) {
     overlay.fabricCanvas().on('object:moved', event => {
         console.log('object:moved');
         console.log(event);
+        if (event.target.type === 'rect') {
+            let guid = event.target.guid;
+            let id = event.target.id;
+            $.ajax({
+                type: "post",
+                url: `http://localhost:5001/Annotation/UpdateAnno?guid=${guid}&id=${id}`,
+                contentType: 'application/json',
+                data: JSON.stringify(event.target),
+                success: function (data, status) {
+                    if (status === "success") {
+                        console.log("成功拖动后保存！");
+                    }
+                }
+            });
+        }
     });
     overlay.fabricCanvas().on('mouse:out', event => {
         if (isRealValue(event.target) && event.target.canvas.getActiveObject() && event.target.canvas.getActiveObject().type === 'i-text') {
@@ -257,6 +305,8 @@ function InitFabricOverlay(viewer) {
             txt.left = 950;
             over.fabricCanvas().add(txt);
         }
+    }
+    function registerMouseEvent(overlay) {
 
     }
 }
