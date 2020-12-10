@@ -1,2 +1,2 @@
 # OpenSeadragonAnnotation
-use annotations on openseadragon, get data from webapi.
+Use annotations on openseadragon, get data from webapi.
