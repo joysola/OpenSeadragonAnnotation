@@ -5,11 +5,13 @@
 @section OpenSeadragonScripts {
     @await Html.PartialAsync("_OpenSeadragonScriptsPartial")
 }
-
+@section OpenSeadragonScripts2 {
+    @await Html.PartialAsync("_OpenSeadragonScriptsPartial2")
+}
 <div style="display: flex; flex-direction: column; justify-content: flex-start;">
     <!--按钮用于标记的选择-->
     <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-    <h2>OpenSeadragon</h2>
+        <h2>OpenSeadragon</h2>
         <button id="rect" style="width:5%; ">画标注</button>
     </div>
     <!--openseadragon-->

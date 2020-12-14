@@ -48,6 +48,19 @@ namespace OpenSeadragonAnnotationWeb.Controllers
             return result;
         }
         /// <summary>
+        /// 删除标注
+        /// </summary>
+        /// <param name="anno"></param>
+        /// <param name="guid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<bool> DeleteAnno([FromBody] AnnoMark anno, string guid, int id)
+        {
+            var result = _annotationService.DeleteAnno(anno, guid, id);
+            return result;
+        }
+        /// <summary>
         /// 获取数据库中的标注
         /// </summary>
         /// <returns></returns>
@@ -57,5 +70,6 @@ namespace OpenSeadragonAnnotationWeb.Controllers
             var result = _annotationService.GetAnnoMarks();
             return result;
         }
+
     }
 }

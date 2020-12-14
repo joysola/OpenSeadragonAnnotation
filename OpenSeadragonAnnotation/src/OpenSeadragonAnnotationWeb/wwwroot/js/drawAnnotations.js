@@ -3,6 +3,7 @@
 var self = this;
 var isDraw = false;
 var olay = {};
+var url = 'http://localhost:5001/Annotation'
 window.onload = function () {
     var viewer = OpenSeadragon({
         id: "openSeadragon1",
@@ -23,20 +24,62 @@ window.onload = function () {
             }
         }
     });
+    // 初始化标记功能
     InitFabricOverlay(viewer);
+    // 画标注按钮
     document.getElementById("rect").onclick = event => {
         isDraw = !isDraw;
         viewer.setMouseNavEnabled(!isDraw);
         viewer.outerTracker.setTracking(!isDraw);
     };
     // 获取标注
-    $.get("http://localhost:5001/Annotation/GetAnnoMarks", data => {
+    $.get(`${url}/GetAnnoMarks`, data => {
         data.forEach(x => {
             if (x.type === "rect") {
                 var r = new fabric.Rect(x);
                 olay.fabricCanvas().add(r);
             }
         });
+    });
+    //初始化右击菜单(用于删除)
+    $.contextMenu({
+        selector: '#openSeadragon1',
+        trigger: 'right',
+        //构建菜单项build方法在每次右键点击会执行
+        build: function ($trigger, e) {
+            let canvas = olay.fabricCanvas();
+            let anno = canvas.getActiveObject();
+            // 选中，且鼠标在选中的标注中，显示删除
+            if (anno && canvas.containsPoint(event, anno)) {
+                return {
+                    callback: (key, options) => {
+                        if (key === 'delete') {
+                            let canvas = olay.fabricCanvas();
+                            let anno = canvas.getActiveObject(); // 被选中的anno
+                            canvas.remove(anno); // 删除
+                            canvas.requestRenderAll(); // 重新生成画布
+                            let guid = anno.guid;
+                            let id = anno.id;
+                            $.ajax({
+                                type: "post",
+                                url: `${url}/DeleteAnno?guid=${guid}&id=${id}`,
+                                contentType: 'application/json',
+                                data: JSON.stringify(anno),
+                                success: function (data, status) {
+                                    if (status === "success") {
+                                        console.log("删除标注成功！");
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    items: {
+                        "delete": { name: "删除", icon: "delete" }
+                    }
+                };
+            }
+
+        }
 
     });
 };
@@ -51,7 +94,7 @@ function InitFabricOverlay(viewer) {
     olay = overlay;
     // Add fabric rectangle
     var rect = {};
-
+    //overlay.fabricCanvas().fireRightClick = true; // 允许右击
     //var rect2 = new fabric.Rect({
     //    left: 666,
     //    top: 666,
@@ -128,7 +171,7 @@ function InitFabricOverlay(viewer) {
                 //});
                 $.ajax({
                     type: "post",
-                    url: "http://localhost:5001/Annotation/StoreAnno",
+                    url: `${url}/StoreAnno`,
                     contentType: 'application/json',
                     data: JSON.stringify(rect),
                     success: function (data, status) {
@@ -151,21 +194,21 @@ function InitFabricOverlay(viewer) {
             }
 
             // Animate circle on mouse release (try to drag circle up)
-            if (event.target.action === 'gravity') {
-                delta = overlay.fabricCanvas().height - event.target.top;
-                if (delta > 0) {
-                    circle.animate('top', '+=' + (delta + 420), {
-                        onChange: overlay.fabricCanvas().renderAll.bind(overlay.fabricCanvas()),
-                        duration: 2000,
-                        easing: fabric.util.ease.easeOutBounce
-                    });
-                    circle.animate('scaleY', '-=.1', {
-                        onChange: overlay.fabricCanvas().renderAll.bind(overlay.fabricCanvas()),
-                        duration: 1000,
-                    });
+            //if (event.target.action === 'gravity') {
+            //    delta = overlay.fabricCanvas().height - event.target.top;
+            //    if (delta > 0) {
+            //        circle.animate('top', '+=' + (delta + 420), {
+            //            onChange: overlay.fabricCanvas().renderAll.bind(overlay.fabricCanvas()),
+            //            duration: 2000,
+            //            easing: fabric.util.ease.easeOutBounce
+            //        });
+            //        circle.animate('scaleY', '-=.1', {
+            //            onChange: overlay.fabricCanvas().renderAll.bind(overlay.fabricCanvas()),
+            //            duration: 1000,
+            //        });
 
-                }
-            }
+            //    }
+            //}
 
         } else {
             btnDraw(false, overlay, circle2, text);
@@ -189,15 +232,16 @@ function InitFabricOverlay(viewer) {
         console.log(event);
     });
     //拖动后产生事件
-    overlay.fabricCanvas().on('object:moved', event => {
-        console.log('object:moved');
+    overlay.fabricCanvas().on('object:modified', event => {
+        overlay.fabricCanvas().requestRenderAll(); // 重新生成画布,防止数据未更新
+        console.log('object:modified');
         console.log(event);
         if (event.target.type === 'rect') {
             let guid = event.target.guid;
             let id = event.target.id;
             $.ajax({
                 type: "post",
-                url: `http://localhost:5001/Annotation/UpdateAnno?guid=${guid}&id=${id}`,
+                url: `${url}/UpdateAnno?guid=${guid}&id=${id}`,
                 contentType: 'application/json',
                 data: JSON.stringify(event.target),
                 success: function (data, status) {
@@ -247,6 +291,10 @@ function InitFabricOverlay(viewer) {
         }
 
         if (isRealValue(event.target)) {
+            if (event.button === 3) {
+                //viewer.setMouseNavEnabled(false);
+                //viewer.outerTracker.setTracking(false);
+            }
             if (event.target.action === 'button') {
                 btnDraw(true, overlay, circle2, text);
             }
