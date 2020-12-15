@@ -12,11 +12,14 @@
     <!--按钮用于标记的选择-->
     <div style="display: flex; flex-direction: row; justify-content: flex-start;">
         <h2>OpenSeadragon</h2>
-        <button id="rect" style="width:5%; ">画标注</button>
     </div>
     <!--openseadragon-->
-    <div>
-        <div id="openSeadragon1" style="width:100%; height:970px;"></div>
+    <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+        <div style="display: flex; flex-direction: column; justify-content: flex-start; width:5%; height:5%;">
+            <button id="rect" style="width:100%;">开始绘制</button>
+            <button id="draw" style="width:100%;">自由绘制</button>
+        </div>
+        <div id="openSeadragon1" style="width:95%; height:970px;"></div>
     </div>
 </div>
 
