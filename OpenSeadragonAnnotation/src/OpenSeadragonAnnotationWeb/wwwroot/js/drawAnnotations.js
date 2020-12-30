@@ -243,23 +243,54 @@ function InitFabricOverlay(viewer) {
     });
     var selectedObj = {};
     overlay.fabricCanvas().on('selection:updated', event => {
-        selectedObj = event.target;
+        console.log(`selection:updated${event.target.guid}`);
+        //selectedObj = event.target;
     });
-    //overlay.fabricCanvas().on('mouse:down:before', event => {
-    //    if (!isRealValue(event.target)) {
-    //        return;
-    //    }
-    //    let res = checkOverlap(overlay); // 层叠处理
-    //    if (selectedObj.guid != event.target.guid) {
-    //        event.target = res;
-    //        let xx = JSON.parse(JSON.stringify(event))
-    //        event.e.preventDefaultAction = false;
-    //        overlay.fabricCanvas().fire("mouse:down",xx);
-    //    } else {
-    //        //event.e.preventDefaultAction = true;
-    //        console.log(event.target.guid);
-    //    }
-    //});
+    overlay.fabricCanvas().on('selection:created', event => {
+        if (!event.target.guid) {
+            return;
+        }
+        console.log(`selection:created${event.target.guid}`);
+        //let res = checkOverlap(overlay); // 层叠处理
+        if (event.target.guid !== selectedObj.guid) {
+            event.target = selectedObj;
+            //overlay.fabricCanvas().setActiveObject(selectedObj); // 设定选中项
+            //overlay.fabricCanvas().renderAll();
+        }
+        console.log(`selection:created${event.target.guid}`);
+
+    });
+    overlay.fabricCanvas().on('selection:cleared', event => {
+        console.log(`selection:cleared${event.target.guid}`);
+        //selectedObj = event.target;
+    });
+    overlay.fabricCanvas().on('mouse:down:before', event => {
+        if (!isRealValue(event.target)) {
+            return;
+        }
+        console.log(`mouse:down:before${event.target.guid}`);
+
+        let res = checkOverlap(overlay); // 层叠处理
+        //if (selectedObj.guid != event.target.guid) {
+        selectedObj = res;
+        event.target = res;
+        if (event.target.guid !== selectedObj.guid) {
+            event.target = selectedObj;
+            //overlay.fabricCanvas().setActiveObject(selectedObj); // 设定选中项
+            //overlay.fabricCanvas().renderAll();
+        }
+        // xx = JSON.parse(JSON.stringify(event))
+        // event.e.preventDefaultAction = false;
+        // overlay.fabricCanvas().fire("mouse:down",xx);
+        // } else {
+        //event.e.preventDefaultAction = true;
+        console.log(`mouse:down:before${event.target.guid}`);
+        // }
+    });
+
+    overlay.fabricCanvas().on('mousedown:before', event => {
+        console.log(`mousedown:before${event.target.guid}`);
+    });
     overlay.fabricCanvas().on('mouse:down', event => {
         // 画标注
         if (window.isDraw) {
@@ -287,9 +318,15 @@ function InitFabricOverlay(viewer) {
             overlay.fabricCanvas().add(rect);
             return;
         } else { // 选中判读
-            //if (selectedObj.guid != event.target.guid) {
-            checkOverlap(overlay); // 层叠处理
-            //}
+            console.log(`mouse:down${event.target.guid}`);
+
+            if (selectedObj.guid != event.target.guid) {
+                checkOverlap(overlay); // 层叠处理
+                overlay.fabricCanvas().setActiveObject(selectedObj); // 设定选中项
+                overlay.fabricCanvas().renderAll();
+            }
+            event.target = selectedObj;
+            console.log(`mouse:down${event.target.guid}`);
             //if (event.button === 3) {
             //viewer.setMouseNavEnabled(false);
             //viewer.outerTracker.setTracking(false);
@@ -359,9 +396,9 @@ function InitFabricOverlay(viewer) {
         }
         let result = tmp.filter(t => !map.has(t.guid)); // 去掉包含了对象的对象
         if (result.length > 0) {
-            canvas.setActiveObject(result[0]); // 设定选中项
+            //canvas.setActiveObject(result[0]); // 设定选中项
             console.log(`选中项${result[0].guid}`);
-            canvas.renderAll(); // 重新生成画布，防止不能及时更新选中项
+            // canvas.renderAll(); // 重新生成画布，防止不能及时更新选中项
             return result[0];
         }
     }

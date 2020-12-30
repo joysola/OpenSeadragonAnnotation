@@ -9,13 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\jQuery-contextMenu\documentation\**" />
     <Compile Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <Compile Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
+    <Content Remove="wwwroot\lib\jQuery-contextMenu\documentation\**" />
     <Content Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <Content Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
 <Content Remove="wwwroot\dzc_output_images\**" />
+<EmbeddedResource Remove="wwwroot\lib\jQuery-contextMenu\documentation\**" />
     <EmbeddedResource Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <EmbeddedResource Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
+    <None Remove="wwwroot\lib\jQuery-contextMenu\documentation\**" />
     <None Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\fabric\archive\**" />
     <None Remove="wwwroot\lib\OpenseadragonFabricjsOverlay\openseadragon\**" />
   </ItemGroup>
