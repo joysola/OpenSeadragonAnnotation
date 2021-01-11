@@ -1,6 +1,7 @@
 ﻿
 
 
+
 var isDraw = false;
 var isFreeDraw = false;
 var olay = {}; // openseadragon的FabricjsOverlay用于使用fabricjs
@@ -16,17 +17,43 @@ window.onload = function () {
         prefixUrl: "./lib/openseadragon-bin-2.4.2/images/",
         showNavigator: true, // 显示导航栏缩略图
         navigatorPosition: 'TOP_RIGHT',
+        //tileSources: {
+        //    Image: {
+        //        xmlns: "http://schemas.microsoft.com/deepzoom/2009",
+        //        Url: "./dzc_output_images/Samples/9_files/",
+        //        Overlap: "1",
+        //        TileSize: "256",
+        //        Format: "jpg",
+        //        Size: {
+        //            Height: "63488",
+        //            Width: "65792"
+        //        }
+        //    }
+        //},
+
         tileSources: {
-            Image: {
-                xmlns: "http://schemas.microsoft.com/deepzoom/2009",
-                Url: "./dzc_output_images/Samples/9_files/",
-                Overlap: "1",
-                TileSize: "256",
-                Format: "jpg",
-                Size: {
-                    Height: "63488",
-                    Width: "65792"
-                }
+            height: 63488,
+            width: 65792,
+            tileSize: 256,
+            tileOverlap: 1,
+            //minLevel: 9,
+            getTileUrl: function (level, x, y) {
+
+                //function zeropad(i) {
+                //    var n = String(i),
+                //        m = 6 - n.length;
+                //    n = (m < 1) ? n : new Array(m + 1).join("0") + n;
+                //    return n.substr(0, 3) + "/" + n.substr(3);
+                //};
+                //function Test() {
+                //    $.ajaxSettings.async = false;
+                //    $.get(`${url}/GetPicture`, { level: level, xx: x, yy: y }, data => {
+                //        return data;
+                //    });
+                //    $.ajaxSettings.async = true;
+                //}
+
+                return `${url}/GetTileImage?level=${level}&xx=${x}&yy=${y}`;
             }
         }
     });
