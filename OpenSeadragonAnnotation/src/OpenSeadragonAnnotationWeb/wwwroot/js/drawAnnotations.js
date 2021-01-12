@@ -11,6 +11,7 @@ var borderColor = 'black';
 var cornerColor = 'black';
 var cornerSize = 12;
 var url = 'http://localhost:5001/Annotation'
+
 window.onload = function () {
     var viewer = OpenSeadragon({
         id: "openSeadragon1",
@@ -38,22 +39,7 @@ window.onload = function () {
             tileOverlap: 1,
             //minLevel: 9,
             getTileUrl: function (level, x, y) {
-
-                //function zeropad(i) {
-                //    var n = String(i),
-                //        m = 6 - n.length;
-                //    n = (m < 1) ? n : new Array(m + 1).join("0") + n;
-                //    return n.substr(0, 3) + "/" + n.substr(3);
-                //};
-                //function Test() {
-                //    $.ajaxSettings.async = false;
-                //    $.get(`${url}/GetPicture`, { level: level, xx: x, yy: y }, data => {
-                //        return data;
-                //    });
-                //    $.ajaxSettings.async = true;
-                //}
-
-                return `${url}/GetTileImage?level=${level}&xx=${x}&yy=${y}`;
+                return `${url}/GetPicture?level=${level}&xx=${x}&yy=${y}`;
             }
         }
     });
@@ -109,6 +95,10 @@ window.onload = function () {
     // 初始化右键菜单
     InitContextMenu(olay);
 };
+$(window).resize(() => {
+    olay.fabricCanvas();
+    //olay.resizecanvas();
+});
 // 初始化Fabric用于构建标注
 function InitFabricOverlay(viewer) {
     // 初始化选中的边框颜色
@@ -345,7 +335,7 @@ function InitFabricOverlay(viewer) {
             overlay.fabricCanvas().add(rect);
             return;
         } else { // 选中判读
-            console.log(`mouse:down${event.target.guid}`);
+            //console.log(`mouse:down${event.target.guid}`);
 
             if (selectedObj.guid != event.target.guid) {
                 checkOverlap(overlay); // 层叠处理
@@ -509,4 +499,31 @@ function btnDraw(flag, over, shape, txt) {
         // txt.left = 950;
         // over.fabricCanvas().add(txt);
     }
+}
+// Convert fabric to image coordinates
+function fabricToImagepoint(osdCanvas, selectedSlideSource, x, y) {
+    var osdPoint = new OpenSeadragon.Point(x, y);
+
+    var viewportPoint = osdCanvas.viewport.pointFromPixel(osdPoint, true);
+    return selectedSlideSource.viewportToImageCoordinates(viewportPoint.x, viewportPoint.y, true);
+}
+// To convert the image coordinates to fabric
+function imageToFabricPoint(osdCanvas, fabricCanvas, selectedSlideSource, x, y, angle) {
+    var osdPoint = new OpenSeadragon.Point(x, y);
+    var factor = 1 / fabricCanvas.getZoom();
+    if (angle) {
+        osdPoint = osdPoint.rotate(-1 * angle);
+    }
+    var viewportPoint = selectedSlideSource.imageToViewportCoordinates(osdPoint.x, osdPoint.y);
+    var webPoint = osdCanvas.viewport.viewportToViewerElementCoordinates(viewportPoint);
+    var tiledImage = osdCanvas.world.getItemAt(0);
+    var canvasOffset = canvasDiv.getBoundingClientRect();
+    var pageScroll = OpenSeadragon.getPageScroll();
+    var origin = new OpenSeadragon.Point(0, 0);
+    var imageWindowPoint = tiledImage.imageToWindowCoordinates(origin);
+    var x = Math.round(imageWindowPoint.x);
+    var y = Math.round(imageWindowPoint.y);
+    var paintPoint = new fabric.Point(canvasOffset.left - x + pageScroll.x, canvasOffset.top - y + pageScroll.y);
+    return { x: (webPoint.x + paintPoint.x) * factor, y: (webPoint.y + paintPoint.y) * factor };
+
 }
