@@ -41,18 +41,15 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\assets\OpenseadragonFabricjsOverlay\fabric\fabric.adapted.js" />
-    <Content Include="static\OpenseadragonFabricjsOverlay-0.3.0\openseadragon-fabricjs-overlay.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\" />
-    <Folder Include="static\" />
     <Folder Include="public\" />
     <Folder Include="src\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
     <Folder Include="src\assets\OpenseadragonFabricjsOverlay\" />
     <Folder Include="src\assets\OpenseadragonFabricjsOverlay\fabric\" />
-    <Folder Include="static\OpenseadragonFabricjsOverlay-0.3.0\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.config.js" />

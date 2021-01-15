@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
+// import OSD from 'openseadragon'
+import './assets/OSDAssistance'
 import ElementUI from 'element-ui'
-import OpenSeadragon from 'openseadragon'
-// import fabric from './assets/OpenseadragonFabricjsOverlay/fabric/fabric.adapted.js'
-// import './assets/OpenseadragonFabricjsOverlay/openseadragon-fabricjs-overlay.js'
-
+import '@/assets/OpenseadragonFabricjsOverlay/openseadragon-fabricjs-overlay'
+// import '@/assets/FabAssistance'
+import Fabric from 'fabric'
+Vue.use(Fabric)
+// Vue.prototype.Fabric = Fabric
 Vue.use(ElementUI)
-Vue.prototype.OpenSeadragon = OpenSeadragon
+// window.OpenSeadragon = OSD.OpenSeadragon.Viewer
 Vue.config.productionTip = true
 
 new Vue({

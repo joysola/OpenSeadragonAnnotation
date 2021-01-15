@@ -37,7 +37,7 @@ else {
     fabric.window = virtualWindow;
     DOMParser = fabric.window.DOMParser;
 }
-function Fabric() {return fabric}; export default{ Fabric };
+
 /**
  * True when in environment that supports touch events
  * @type boolean

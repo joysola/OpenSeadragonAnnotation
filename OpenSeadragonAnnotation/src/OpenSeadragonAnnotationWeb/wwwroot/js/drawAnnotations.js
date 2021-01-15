@@ -96,8 +96,8 @@ window.onload = function () {
     InitContextMenu(olay);
 };
 $(window).resize(() => {
-    olay.fabricCanvas();
-    //olay.resizecanvas();
+    //olay.resize();
+    //olay.resizeCanvas();
 });
 // 初始化Fabric用于构建标注
 function InitFabricOverlay(viewer) {
